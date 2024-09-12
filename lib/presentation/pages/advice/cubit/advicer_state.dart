@@ -1,4 +1,4 @@
-part of 'advicer_cubit.dart';
+import 'package:equatable/equatable.dart';
 
 abstract class AdvicerCubitState extends Equatable {
   const AdvicerCubitState();

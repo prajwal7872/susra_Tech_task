@@ -1,9 +1,7 @@
 import 'dart:convert';
-
-import 'package:advicer/0_data/exceptions/exceptions.dart';
 import 'package:http/http.dart' as http;
-
-import '../models/advice_model.dart';
+import 'package:susra_task/data/exceptions/exceptions.dart';
+import 'package:susra_task/data/models/advice_model.dart';
 
 abstract class AdviceRemoteDatasource {
   /// requests a random advice from api

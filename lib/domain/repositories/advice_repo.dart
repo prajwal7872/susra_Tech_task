@@ -1,5 +1,5 @@
-import 'package:advicer/1_domain/entities/advice_entity.dart';
 import 'package:dartz/dartz.dart';
+import 'package:susra_task/domain/entities/advice_entity.dart';
 import '../failures/failures.dart';
 
 abstract class AdviceRepo {

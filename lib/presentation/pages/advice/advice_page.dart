@@ -1,11 +1,12 @@
-import 'package:advicer/2_application/core/services/theme_service.dart';
-import 'package:advicer/2_application/pages/advice/cubit/advicer_cubit.dart';
-import 'package:advicer/2_application/pages/advice/widgets/custom_button.dart';
-import 'package:advicer/2_application/pages/advice/widgets/error_message.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:provider/provider.dart';
-import '../../../injection.dart';
+import 'package:susra_task/presentation/core/services/theme_service.dart';
+import 'package:susra_task/presentation/pages/advice/cubit/advicer_cubit.dart';
+import 'package:susra_task/presentation/pages/advice/cubit/advicer_state.dart';
+import 'package:susra_task/presentation/pages/advice/widgets/custom_button.dart';
+import 'package:susra_task/presentation/pages/advice/widgets/error_message.dart';
+import 'package:susra_task/injection.dart';
 import 'widgets/advice_field.dart';
 
 class AdvicerPageWrapperProvider extends StatelessWidget {
@@ -26,6 +27,14 @@ class AdvicerPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final themeData = Theme.of(context);
+    final mediaQuery = MediaQuery.of(context);
+    final screenHeight = mediaQuery.size.height;
+    final screenWidth = mediaQuery.size.width;
+
+    // Use relative padding and height based on screen size
+    final paddingHorizontal = screenWidth * 0.1; // 10% of screen width
+    final buttonHeight = screenHeight * 0.25; // 25% of screen height
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -42,7 +51,7 @@ class AdvicerPage extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50),
+        padding: EdgeInsets.symmetric(horizontal: paddingHorizontal),
         child: Column(
           children: [
             Expanded(
@@ -53,6 +62,7 @@ class AdvicerPage extends StatelessWidget {
                       return Text(
                         'Your Advice is waiting for you!',
                         style: themeData.textTheme.displayLarge,
+                        textAlign: TextAlign.center,
                       );
                     } else if (state is AdvicerStateLoading) {
                       return CircularProgressIndicator(
@@ -71,10 +81,11 @@ class AdvicerPage extends StatelessWidget {
               ),
             ),
             SizedBox(
-              height: 200,
+              height: buttonHeight, // Dynamic height for the button area
               child: Center(
                 child: CustomButton(
-                  onTap: () => BlocProvider.of<AdvicerCubit>(context).adviceRequested,
+                  onTap: () =>
+                      BlocProvider.of<AdvicerCubit>(context).adviceRequested,
                 ),
               ),
             )
